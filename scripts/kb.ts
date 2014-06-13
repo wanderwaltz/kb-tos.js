@@ -1,5 +1,7 @@
 /// <reference path="kiwi/src/Kiwi.ts" />
+/// <reference path="views/kb.views.sea.ts" />
 /// <reference path="kb.game.ts" />
+
 
 var myState = new Kiwi.State('myState');
 var loadingState = new Kiwi.State('loadingState');
@@ -13,7 +15,7 @@ myState.preload = function() {
 
 myState.create = function() {
     this.background = new Kiwi.GameObjects.StaticImage(this, this.textures['background'], 0, 0);
-    this.seaTest = new Kiwi.GameObjects.StaticImage(this, this.textures['sea.bottom'], 0, 0);
+    this.seaTest = new KB.Views.Sea(this, 0, 0);
     this.character = new Kiwi.GameObjects.Sprite(this, this.textures['characterSprite'], 350, 330, true);
 
     Kiwi.State.prototype.create.call(this);
@@ -117,6 +119,7 @@ loadingState.preload = function() {
     this.addSpriteSheet('characterSprite', 'character.png', 150, 117);
     this.addImage('background', 'jungle.png');
     this.addImage('sea.bottom', 'resources/graphics/sea/kb.textures.sea.0.png');
+    this.addImage('sea.top', 'resources/graphics/sea/kb.textures.sea.1.png');
 
 }
 
