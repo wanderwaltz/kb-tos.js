@@ -1,0 +1,3 @@
+[submodule "scripts/Kiwi"]
+	path = scripts/Kiwi
+	url = https://github.com/gamelab/kiwi.js.git

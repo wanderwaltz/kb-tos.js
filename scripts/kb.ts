@@ -1,3 +1,6 @@
+/// <reference path="kiwi/src/Kiwi.ts" />
+/// <reference path="kb.game.ts" />
+
 var myState = new Kiwi.State('myState');
 var loadingState = new Kiwi.State('loadingState');
 var preloader = new Kiwi.State('preloader');
@@ -9,8 +12,8 @@ myState.preload = function() {
 
 
 myState.create = function() {
-    this.background = new Kiwi.GameObjects.StaticImage(this, this.textures['background'], 0, 0, true);
-    this.seaTest = new Kiwi.GameObjects.StaticImage(this, this.textures['sea.bottom'], 0, 0, true);
+    this.background = new Kiwi.GameObjects.StaticImage(this, this.textures['background'], 0, 0);
+    this.seaTest = new Kiwi.GameObjects.StaticImage(this, this.textures['sea.bottom'], 0, 0);
     this.character = new Kiwi.GameObjects.Sprite(this, this.textures['characterSprite'], 350, 330, true);
 
     Kiwi.State.prototype.create.call(this);
@@ -100,7 +103,6 @@ loadingState.preload = function() {
 
     this.logo.alpha = 0;
 
-    this.tweenIn = new Kiwi.Animations.Tween;
     this.tweenIn = this.game.tweens.create(this.logo);
 
     this.tweenIn.to({
@@ -139,7 +141,7 @@ loadingState.create = function() {
 
 }
 
-loadingState.switchToMain = function() {
+loadingState['switchToMain'] = function() {
     this.game.states.switchState('myState');
 }
 
