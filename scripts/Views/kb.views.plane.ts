@@ -1,5 +1,5 @@
 /// <reference path="../kiwi/src/Kiwi.ts" />
-/// <reference path="../helpers/kb.helpers.math.ts" />
+/// <reference path="../utils/kb.math.ts" />
 
 module KB.Views {
   export class Plane extends Kiwi.Entity {
@@ -68,8 +68,8 @@ module KB.Views {
       var cw = cell.w * this.scale;
       var ch = cell.h * this.scale;
 
-      var ox = Math['fmod'](this.offsetX, cw);
-      var oy = Math['fmod'](this.offsetY, ch);
+      var ox = xMath.fmod(this.offsetX, cw);
+      var oy = xMath.fmod(this.offsetY, ch);
 
       var tilesX: number = Math.ceil(this.width/cell.w)+1;
       var tilesY: number = Math.ceil(this.height/cell.h)+1;
