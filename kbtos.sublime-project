@@ -5,6 +5,7 @@
 
     "build_systems": [{
         "name": "Build kb.ts",
+        "path": "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin",
         "working_dir": "${project_path}/scripts",
         "cmd": ["tsc", "${project_path}/scripts/kb.ts", "--out", "build.js", "--target", "ES5"]
     }]
