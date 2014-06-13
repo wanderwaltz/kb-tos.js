@@ -1,12 +1,10 @@
-/// <reference path="../kiwi/src/Kiwi.ts" />
-/// <reference path="../utils/kb.math.ts" />
+/// <reference path="../kb.ts" />
 
 module KB.Views {
   export class Plane extends Kiwi.Entity {
 
-    constructor(state: Kiwi.State, atlas: Kiwi.Textures.TextureAtlas,
-      x: number = 0, y: number = 0, width: number = 200, height: number = 200) {
-      super(state, x, y);
+    constructor(state: Kiwi.State, atlas: Kiwi.Textures.TextureAtlas, frame: KB.Graphics.Rect) {
+      super(state, frame.origin.x, frame.origin.y);
 
       //Texture atlas error check.
       if (typeof atlas == "undefined") {
@@ -18,14 +16,14 @@ module KB.Views {
 
       this.atlas = atlas;
       this.cellIndex = this.atlas.cellIndex;
-      this.width = width;
-      this.height = height;
+      this.width = frame.size.width;
+      this.height = frame.size.height;
       this.alpha = 1.0;
-      this.offsetX = 0;
-      this.offsetY = 0;
+      this.offset = point.zero;
       this.scale = 1;
+      this.tintColor = rgb(255, 255, 255);
 
-      this.box = this.components.add(new Kiwi.Components.Box(this, x, y, this.width, this.height));
+      this.box = this.components.add(new Kiwi.Components.Box(this, frame.origin.x, frame.origin.y, this.width, this.height));
     }
 
 
@@ -35,10 +33,25 @@ module KB.Views {
 
     public box: Kiwi.Components.Box;
 
-    public alpha: number;
-    public offsetX: number;
-    public offsetY: number;
+    public offset: KB.Graphics.Point;
     public scale: number;
+
+    public get tintColor(): KB.Graphics.Color {
+      return this._tintColor;
+    }
+
+
+    public set tintColor(color: KB.Graphics.Color) {
+      this._tintColor = color;
+
+      if (this._tintedImage == undefined) {
+        this._tintedImage = new KB.Image.Tintable(this.atlas.image, color);
+        return;
+      }
+
+      this._tintedImage.tintColor = color;
+    }
+
 
     public render(camera: Kiwi.Camera) {
 
@@ -65,23 +78,28 @@ module KB.Views {
 
       var cell = this.atlas.cells[this.cellIndex];
 
-      var cw = cell.w * this.scale;
-      var ch = cell.h * this.scale;
+      var ti: KB.Image.Tintable = this._tintedImage;
 
-      var ox = xMath.fmod(this.offsetX, cw);
-      var oy = xMath.fmod(this.offsetY, ch);
+      var cw = ti.width * this.scale;
+      var ch = ti.height * this.scale;
 
-      var tilesX: number = Math.ceil(this.width/cell.w)+1;
-      var tilesY: number = Math.ceil(this.height/cell.h)+1;
+      var ox = xMath.fmod(this.offset.x, cw);
+      var oy = xMath.fmod(this.offset.y, ch);
+
+      var tilesX: number = Math.ceil(this.width/cw)+1;
+      var tilesY: number = Math.ceil(this.height/ch)+1;
 
       for (var y: number = 0; y < tilesY; ++y) {
         for (var x: number = 0; x < tilesX; ++x) {
-          ctx.drawImage(this.atlas.image, cell.x, cell.y, cell.w, cell.h,
+          ctx.drawImage(ti.image, 0, 0, ti.width, ti.height,
             -t.rotPointX+x*cw-ox, -t.rotPointY+y*ch-oy, cw, ch);
         }
       }
 
       ctx.restore();
     }
+
+    private _tintedImage: KB.Image.Tintable;
+    private _tintColor: KB.Graphics.Color;
   }
 }
