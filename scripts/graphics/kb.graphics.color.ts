@@ -1,3 +1,11 @@
+//
+//  kb.graphics.color.ts
+//  KBTOS
+//
+//  Created by Egor Chiglintsev on 14.06.14.
+//  Copyright (c) 2014 Egor Chiglintsev. All rights reserved.
+//
+
 module KB.Graphics {
   export class Color {
     constructor(r: number, g: number, b: number, a: number) {
