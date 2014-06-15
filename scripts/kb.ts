@@ -13,6 +13,8 @@
 /// <reference path="graphics/kb.graphics.geometry.ts" />
 /// <reference path="graphics/kb.graphics.color.ts" />
 
+/// <reference path="input/kb.input.mouse.ts" />
+
 /// <reference path="utils/kb.math.ts" />
 /// <reference path="utils/kb.image.ts" />
 
@@ -41,6 +43,10 @@ myState.create = function() {
 
 myState.update = function() {
     Kiwi.State.prototype.update.call(this);
+
+    if (kb.mouse.isDown) {
+        this.seaPlane.offset = kb.mouse.position;
+    }
 }
 
 

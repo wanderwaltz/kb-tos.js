@@ -7,6 +7,8 @@
 //
 
 /// <reference path="kb.ts" />
+/// <reference path="input/kb.input.mouse.kiwi.ts" />
+
 module KB {
   export class Game {
     game;
@@ -14,5 +16,19 @@ module KB {
     constructor() {
       this.game = new Kiwi.Game();
     }
+
+    public get mouse(): KB.Input.Mouse {
+      if (this.game.input.mouse == undefined) {
+        return undefined;
+      }
+
+      if (this._mouse == undefined) {
+        this._mouse = new KB.Input.KiwiMouse(this.game.input.mouse);
+      }
+
+      return this._mouse;
+    }
+
+    private _mouse: KB.Input.KiwiMouse;
   }
 }
