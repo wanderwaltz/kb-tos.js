@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Egor Chiglintsev. All rights reserved.
 //
 
-/// <reference path="kiwi/src/Kiwi.ts" />
+/// <reference path="kb.ts" />
 module KB {
   export class Game {
     game;

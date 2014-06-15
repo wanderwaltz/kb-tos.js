@@ -8,6 +8,8 @@
 
 /// <reference path="kiwi/src/Kiwi.ts" />
 
+/// <reference path="kb.constants.ts" />
+
 /// <reference path="graphics/kb.graphics.geometry.ts" />
 /// <reference path="graphics/kb.graphics.color.ts" />
 
@@ -29,7 +31,7 @@ myState.preload = function() {
 
 
 myState.create = function() {
-    this.seaPlane = new KB.Views.Sea(this, rect(point.zero, size(this.game.stage.width, this.game.stage.height)));
+    this.seaPlane = new KB.Views.Sea(this, rect(point.zero, KB.Constants.GAME_SIZE));
 
     Kiwi.State.prototype.create.call(this);
 
@@ -46,7 +48,6 @@ myState.update = function() {
 //LOADING ASSETS
 preloader.preload = function() {
     Kiwi.State.prototype.preload.call(this);
-
     this.addImage('loadingImage', 'loadingImage.png', true);
 }
 
@@ -54,7 +55,8 @@ preloader.preload = function() {
 preloader.create = function() {
     Kiwi.State.prototype.create.call(this);
 
-    this.game.stage.resize(1024, 768);
+    this.game.stage.resize(KB.Constants.GAME_SIZE.width,
+                           KB.Constants.GAME_SIZE.height);
 
     this.game.states.switchState('loadingState');
 }
