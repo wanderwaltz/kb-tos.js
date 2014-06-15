@@ -9,7 +9,7 @@
 /// <reference path="../kb.ts" />
 
 module KB.Views {
-  export class Sea extends Kiwi.Group {
+  export class Sea extends View {
     constructor(state: Kiwi.State, frame: Graphics.Rect) {
       super(state);
       this.x = frame.origin.x;
@@ -49,6 +49,8 @@ module KB.Views {
     public offset: KB.Graphics.Point;
 
     public update() {
+      super.update();
+
       var time: number = this.time.now()/1000;
 
       this.botPlane.offset = point(-this.offset.x, -this.offset.y);

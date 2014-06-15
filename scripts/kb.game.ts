@@ -15,17 +15,10 @@ module KB {
 
     constructor() {
       this.game = new Kiwi.Game();
+      this._mouse = new KB.Input.KiwiMouse(this.game.input);
     }
 
     public get mouse(): KB.Input.Mouse {
-      if (this.game.input.mouse == undefined) {
-        return undefined;
-      }
-
-      if (this._mouse == undefined) {
-        this._mouse = new KB.Input.KiwiMouse(this.game.input.mouse);
-      }
-
       return this._mouse;
     }
 

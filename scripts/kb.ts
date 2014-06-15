@@ -18,6 +18,9 @@
 /// <reference path="utils/kb.math.ts" />
 /// <reference path="utils/kb.image.ts" />
 
+/// <reference path="views/kb.gesture.recognizer.ts" />
+/// <reference path="views/kb.gesture.recognizer.click.ts" />
+/// <reference path="views/kb.view.ts" />
 /// <reference path="views/kb.views.plane.ts" />
 /// <reference path="views/kb.views.sea.ts" />
 /// <reference path="kb.game.ts" />
@@ -35,6 +38,14 @@ myState.preload = function() {
 myState.create = function() {
     this.seaPlane = new KB.Views.Sea(this, rect(point.zero, KB.Constants.GAME_SIZE));
 
+    var click = new KB.Views.ClickGestureRecognizer(kb.mouse);
+    click.callback = function (gesture: KB.Views.ClickGestureRecognizer) {
+        var location = gesture.locationInView(this.seaPlane);
+        console.log("clicked ("+location.x+","+location.y+")");
+    };
+
+    this.seaPlane.addGestureRecognizer(click);
+
     Kiwi.State.prototype.create.call(this);
 
     this.addChild(this.seaPlane);
@@ -43,10 +54,6 @@ myState.create = function() {
 
 myState.update = function() {
     Kiwi.State.prototype.update.call(this);
-
-    if (kb.mouse.isDown) {
-        this.seaPlane.offset = kb.mouse.position;
-    }
 }
 
 
