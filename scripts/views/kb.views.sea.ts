@@ -51,13 +51,13 @@ module KB.Views {
     public update() {
       var time: number = this.time.now()/1000;
 
-      this.botPlane.offset = this.offset;
+      this.botPlane.offset = point(-this.offset.x, -this.offset.y);
 
-      this.midPlane.offset = point(this.offset.x+Math.cos(time)*8.0+this.midPlaneOffset.x,
-                                   this.offset.y+Math.sin(time*2)*2.0+this.midPlaneOffset.y);
+      this.midPlane.offset = point(-this.offset.x+Math.cos(time)*8.0+this.midPlaneOffset.x,
+                                   -this.offset.y+Math.sin(time*2)*2.0+this.midPlaneOffset.y);
 
-      this.topPlane.offset = point(this.offset.x+Math.sin(time)*2.0+this.topPlaneOffset.x,
-                                   this.offset.y+Math.cos(time)*6.0+this.topPlaneOffset.y);
+      this.topPlane.offset = point(-this.offset.x+Math.sin(time)*2.0+this.topPlaneOffset.x,
+                                   -this.offset.y+Math.cos(time)*6.0+this.topPlaneOffset.y);
     }
 
     private botPlane: KB.Views.Plane;
